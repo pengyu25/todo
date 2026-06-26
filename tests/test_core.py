@@ -23,3 +23,4 @@ def test_delete_task():
     core.add_task(tasks, "买菜")
     assert core.delete_task(tasks, 1) is True
     assert core.delete_task(tasks, 999) is False
+    assert len(tasks) == 0

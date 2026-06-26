@@ -1,7 +1,7 @@
 [project]
 name = "todo"
 version = "0.1.0"
-description = "Add your description here"
+description = "一个基于 JSON 存储的命令行待办清单工具"
 readme = "README.md"
 authors = [
     { name = "pengyu25", email = "2249526001@qq.com" }
