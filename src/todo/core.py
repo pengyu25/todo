@@ -11,15 +11,17 @@ def list_tasks(tasks: list[Task]) -> list[Task]:
     return tasks
 
 
-def mark_done(tasks: list[Task], task_id: int) -> None:
+def mark_done(tasks: list[Task], task_id: int) -> bool:
     for item in tasks:
         if item.id == task_id:
             item.done = True
-            break
+            return True
+    return False
 
 
-def delete_task(tasks: list[Task], task_id: int) -> None:
+def delete_task(tasks: list[Task], task_id: int) -> bool:
     for item in tasks:
         if item.id == task_id:
             tasks.remove(item)
-            break
+            return True
+    return False
