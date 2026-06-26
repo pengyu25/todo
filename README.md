@@ -8,6 +8,7 @@
     todo done(标记任务已完成，参数为任务标号)         todo done 1
     todo delete(从代办列表中删除任务，参数为任务标号)  todo delete 1
     todo clear(清空代办列表)                         todo clear
+    
 安装: 
     方式一(uv安装):
         # 1. 安装 uv(如果还没有)
