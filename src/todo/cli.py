@@ -20,6 +20,7 @@ def main(
 
 @app.command()
 def add(title: str) -> None:
+    """添加一条新任务"""
     tasks = storage.load()
     core.add_task(tasks, title)
     storage.save(tasks)
@@ -28,6 +29,7 @@ def add(title: str) -> None:
 
 @app.command()
 def done(task_id: int) -> None:
+    """标记一条任务已完成(传入参数为任务标号)"""
     tasks = storage.load()
     if core.mark_done(tasks, task_id):
         storage.save(tasks)
@@ -39,6 +41,7 @@ def done(task_id: int) -> None:
 
 @app.command()
 def delete(task_id: int) -> None:
+    """将任务从待办列表中删除(参数为任务标号)"""
     tasks = storage.load()
     if core.delete_task(tasks, task_id):
         storage.save(tasks)
@@ -48,8 +51,17 @@ def delete(task_id: int) -> None:
         raise typer.Exit(code=1)
 
 
+@app.command()
+def clean() -> None:
+    """清空代办清单"""
+    tasks = storage.load()
+    tasks = {}
+    storage.save(tasks)
+
+
 @app.command("list")
 def show() -> None:
+    """打印所有任务及其完成情况"""
     tasks = storage.load()
     if not tasks:
         typer.echo("还没有任务")
