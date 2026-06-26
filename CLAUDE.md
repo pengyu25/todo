@@ -53,6 +53,15 @@ todo/
     └── test_core.py      # pytest 测试
 ```
 
+## 当前进度(最后更新:2026-06-25)
+
+- ✅ **第 0 步 · 环境与骨架** —— `uv init --package` 建好 src 布局;`pyproject.toml` 里加了 `[tool.uv] link-mode = "copy"`(跨盘 hardlink 警告);todo 已是**独立 git 仓库**(外层 `D:/Project` 的 `.gitignore` 忽略了 `/project/todo/`);分支 `main`;首次提交完成。
+- ✅ **第 1 步 · 数据模型** —— `src/todo/models.py` 里 `Task` 写好:`id: int`、`title: str`、`done: bool = False`、`created_at: datetime = field(default_factory=datetime.now)`。(踩过的点:`field` 来自 `dataclasses` 不是 `datetime`;`default_factory` 传函数本身不加括号。)
+- ✅ **第 2 步 · 核心逻辑** —— `src/todo/core.py` 四个函数全部完成并通过测试:`add_task(tasks, title) -> Task`(用 `max((t.id for t in tasks), default=0) + 1` 生成 id)、`list_tasks(tasks) -> list[Task]`(只 return,不 print)、`mark_done(tasks, task_id)`、`delete_task(tasks, task_id)`。全部带类型注解。**ruff 已装为 dev 依赖**,`ruff check` 通过、`ruff format` 已格式化。已提交。
+- 🔜 **第 3 步 · 持久化 `storage.py`**(进行中)—— 目标:`save`/`load` 把 `list[Task]` 存成 JSON 再读回。已讲到:json 不认 dataclass 和 datetime,save 第一步要把 Task 转成 dict(`dataclasses.asdict`)、datetime 转 iso 字符串(`.isoformat()`)。还没动文件读写、pathlib、异常处理。
+
+**已确立的约定/风格**:函数名 `snake_case`、动词_名词;参数列表用 `task_id` 不用 `id`;类型注解写 `list[Task]`(方括号);每完成一步用 `feat:`/`chore:` 提交一次,`git add` 后先 `git status` 再 commit。
+
 ## 实现顺序(从最熟的往外扩,每步逼自己学一个主题)
 
 - **第 0 步 · 环境与骨架** → `uv init`、`pyproject.toml`、配 `ruff`、`git init`。先把架子立起来。

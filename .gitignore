@@ -6,5 +6,8 @@ dist/
 wheels/
 *.egg-info
 
+# 运行时数据
+todos.json
+
 # 虚拟环境
 .venv
