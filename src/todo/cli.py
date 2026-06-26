@@ -1,8 +1,21 @@
 import typer
 from todo import storage
 from todo import core
+import logging
+
 
 app = typer.Typer()
+
+
+@app.callback()
+def main(
+    verbose: bool = typer.Option(False, "--verbose", "-v", help="显示详细日志"),
+) -> None:
+    level = logging.INFO if verbose else logging.WARNING
+    logging.basicConfig(
+        level=level,
+        format="%(asctime)s [%(levelname)s] %(name)s %(message)s",
+    )
 
 
 @app.command()
