@@ -16,6 +16,8 @@ def save(tasks: list[Task]) -> None:
     data = [asdict(item) for item in tasks]
     for item in data:
         item["created_at"] = item["created_at"].isoformat()
+        if item["completed_at"] is not None:
+            item["completed_at"] = item["completed_at"].isoformat()
     with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False)
     logger.info("已保存 %d 条任务", len(data))
@@ -33,5 +35,7 @@ def load() -> list[Task]:
         raise ValueError(f"数据文件{DATA_FILE} 已损坏，无法读取") from e
     for item in data:
         item["created_at"] = datetime.fromisoformat(item["created_at"])
+        if item["completed_at"] is not None:
+            item["completed_at"] = datetime.fromisoformat(item["completed_at"])
     tasks = [Task(**item) for item in data]
     return tasks
